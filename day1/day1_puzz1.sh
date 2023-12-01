@@ -1,0 +1,1 @@
+cat input | sed -e 's/[a-zA-Z]//g' -e 's/.*/&\0/' -e 's/^\(.\).*\(.\)$/\1\2/' | paste -s -d+  | bc
