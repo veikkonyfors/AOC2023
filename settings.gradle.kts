@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AOC2023"
-include(":day01")
