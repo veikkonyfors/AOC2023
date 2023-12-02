@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+/day1/day1_puzz2.py
+/day1/analyze.sh
+/day1/writtenumbers
+/day1/input_puzz2_tst
