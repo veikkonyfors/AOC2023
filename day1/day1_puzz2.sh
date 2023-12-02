@@ -1,3 +1,6 @@
+#
+#Usage: cat input | ./day1_puzz2.sh
+#
 sed \
 -e 's/threeightwone/3821/g' -e 's/fiveightwone/5821/g' -e 's/nineightwone/9821/g' -e 's/eightwone/821/g' -e 's/twone/21/g' \
 -e 's/nineightwo/982/g' -e 's/fiveightwo/582/g' -e 's/threeightwo/382/g' -e 's/eightwo/82/g'  \
