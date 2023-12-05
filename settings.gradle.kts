@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "AOC2023"
 include(":day2")
 include(":day3")
+include(":day5")
