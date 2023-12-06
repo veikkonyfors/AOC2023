@@ -10,9 +10,14 @@ class CategoryMap() {
     fun getTarget(source: Long): Long {
 
         var target = source
+        var numHits = 0
+
         transFormLines.forEach {
-            if ( it.sourceStart <= source && source < it.sourceStart + it.rangeLenght)
+            if ( it.sourceStart <= source && source < it.sourceStart + it.rangeLenght) {
                 target = it.destinationStart + source - it.sourceStart
+                if (numHits++ > 1)
+                    println("target $target, destinationStart ${it.destinationStart}, source $source, sourceStart ${it.sourceStart}, rangeLenght ${it.rangeLenght} ")
+            }
         }
         return target
     }

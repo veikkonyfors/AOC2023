@@ -4,7 +4,7 @@ import java.io.File
 class Day5(inputFileName: String) {
 
     val inputLines: List<String>
-    val seeds: List<Seed>
+    val seeds: Seeds
 
     lateinit var seedToSoilMap: CategoryMap
     lateinit var soilToFertilizerMap: CategoryMap
@@ -19,10 +19,11 @@ class Day5(inputFileName: String) {
         val inputFile = File(inputFileName)
         inputLines = inputFile.readLines()
 
-        seeds = Seeds(inputLines[0]).seedsList
+        seeds = Seeds(inputLines[0])
 
         extractMaps()
 
+        /*
         println("seedToSoilMap: $seedToSoilMap")
         println("soilToFertilizerMap: $soilToFertilizerMap")
         println("fertilizerToWatermap: $fertilizerToWaterMap")
@@ -31,12 +32,14 @@ class Day5(inputFileName: String) {
         println("temperatureToHumidityMap: $temperatureToHumidityMap")
         println("humidityToLocationMap: $humidityToLocationMap")
 
+         */
+
     }
 
     fun solvePuzz1(){
 
         var minLocation = 0L
-        seeds.forEach {
+        seeds.seedsList.forEach {
             print("seed:$it\n")
             val soil = seedToSoilMap.getTarget(it.number)
             println("soil: $soil")
@@ -53,6 +56,40 @@ class Day5(inputFileName: String) {
             val location = humidityToLocationMap.getTarget(humidity)
             println("location: $location")
             if (location < minLocation || minLocation == 0L) { minLocation = location }
+        }
+
+        println("minLocation $minLocation")
+
+    }
+
+
+    fun solvePuzz2(){
+
+        var minLocation = 0L
+
+        while(true) {
+            val seed = seeds.getNextOfPairedSeeds()
+            if(seed.number == -1L) break
+
+            //print("seed:${seed.number}\n")
+            val soil = seedToSoilMap.getTarget(seed.number)
+            //println("soil: $soil")
+            val fertilizer = soilToFertilizerMap.getTarget(soil)
+            //println("fertilizer: $fertilizer")
+            val water = fertilizerToWaterMap.getTarget(fertilizer)
+            //println("water: $water")
+            val light = waterToLightMap.getTarget(water)
+            //println("light: $light")
+            val temperature = lightToTemperatureMap.getTarget(light)
+            //println("temperature: $temperature")
+            val humidity = temperatureToHumidityMap.getTarget(temperature)
+            //println("humidity: $humidity")
+            val location = humidityToLocationMap.getTarget(humidity)
+            //println("location: $location")
+            if (location < minLocation || minLocation == 0L) {
+                minLocation = location
+            }
+            //println("minLocation $minLocation")
         }
 
         println("minLocation $minLocation")
