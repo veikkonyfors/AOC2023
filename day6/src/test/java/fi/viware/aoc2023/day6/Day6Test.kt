@@ -18,7 +18,8 @@ class Day6Test {
 
     @Test
     fun Day6(){
-        val day6 = Day6("input")
-        day6.solvePuzz1()
+        val day6 = Day6("input_test")
+        //day6.solvePuzz1()
+        day6.solvePuzz2()
     }
 }

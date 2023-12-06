@@ -10,7 +10,7 @@ class Races(inputLines: List<String>) {
 
     init {
         times.forEachIndexed { i, s ->
-            raceList.add(Race(s.toInt(), distances[i].toInt()))
+            raceList.add(Race(s.toLong(), distances[i].toLong()))
         }
     }
 
