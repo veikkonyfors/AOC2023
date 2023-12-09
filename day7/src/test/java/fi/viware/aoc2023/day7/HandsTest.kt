@@ -22,8 +22,15 @@ class HandsTest {
 
     @Test
     fun sortHands() {
-        val hands = Hands("32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483".split("\n"))
+        var handsX = HandsX("32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483".split("\n"))
+        println(handsX.sortedHands)
 
+        PUZZ2 = false
+        var hands = Hands("32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483".split("\n"))
+        println(hands.sortedHands)
+
+        PUZZ2 = true
+        hands = Hands("32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483".split("\n"))
         println(hands.sortedHands)
     }
 

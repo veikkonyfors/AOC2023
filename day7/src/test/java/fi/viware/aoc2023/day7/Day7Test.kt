@@ -19,6 +19,17 @@ class Day7Test {
     @Test
     fun solvePuzz1(){
         val day7 = Day7("raw/input")
-        day7.solvePuzz1()
+        val totalWin = day7.solvePuzz1()
+        println("$totalWin")
+        assertEquals(251806792, totalWin)
+    }
+
+    @Test
+    fun solvePuzz2(){
+        PUZZ2 = true
+        val day7 = Day7("raw/input")
+        val totalWin = day7.solvePuzz2()
+        println("$totalWin")
+        assertEquals(252113488, totalWin)
     }
 }
