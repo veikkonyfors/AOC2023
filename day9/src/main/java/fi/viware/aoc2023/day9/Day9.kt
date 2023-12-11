@@ -19,12 +19,28 @@ class Day9(inputFileName: String) {
         }
     }
 
+    fun extrapolateLeft(){
+        histories.historyList.forEach {
+            it.extrapolateLeft()
+        }
+    }
+
     fun solvePuzz1(){
         extrapolate()
         var result = 0
         histories.historyList.forEach {
             var lastInt = it.evalues[0].last()
             result += lastInt
+        }
+        println(result)
+    }
+
+    fun solvePuzz2(){
+        extrapolateLeft()
+        var result = 0
+        histories.historyList.forEach {
+            var firstInt = it.evalues[0].first()
+            result += firstInt
         }
         println(result)
     }

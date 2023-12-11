@@ -36,6 +36,38 @@ class History(historyLine: String) {
 
     }
 
+    fun extrapolateLeft(){
+
+        // First iterate to all zero difference line
+        while ( ! evalues[evalues.size -1].all { it == 0} ){
+            var differenceLine:MutableList<Int> = mutableListOf()
+            differenceLine = evalues[evalues.size - 1].zipWithNext { a, b -> b - a  }.toMutableList()
+            evalues.add(differenceLine)
+        }
+
+
+
+        // Then add an item to each line
+        //evalues.last().add(0)  // Add a zero to last line = zero line
+        evalues.last().add(0,0)
+
+        evalues.forEachIndexed { index, intsList ->
+            if (index == evalues.size - 1) return@forEachIndexed
+            var toAdd: Int = 0
+
+            if (index != evalues.size - 1) {
+                val secondLastPreviousLine = evalues[evalues.size - 2 - index]
+                val lastLine = evalues[evalues.size - 1 - index]
+                val lastLinesFirst = lastLine.first()
+                val secondLastPreviousLineFirstInt = secondLastPreviousLine[0]
+                toAdd = secondLastPreviousLineFirstInt - lastLinesFirst
+                val x = ""
+            }
+            val indexToAdd = evalues.size - 2 - index
+            evalues[indexToAdd].add(0, toAdd)
+        }
+
+    }
     override fun toString(): String {
         return values.joinToString(separator = " ") { it.toString() }
     }
