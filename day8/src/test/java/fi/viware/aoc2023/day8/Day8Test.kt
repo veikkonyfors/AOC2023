@@ -45,10 +45,28 @@ class Day8Test(){
 
     @Test
     fun solvePuzz2Test(){
-        val day8 = Day8("raw/input_test")
+        val day8 = Day8("raw/input_test2")
         val n = day8.solvePuzz2()
         println(n)
-        assertEquals(22411, n)
+        assertEquals(6, n)
     }
+
+    @Test
+    fun solvePuzz2(){
+        val day8 = Day8("raw/input")
+        val n = day8.solvePuzz2()
+        println(n)
+        assertEquals("[16271, 24253, 13201, 14429, 18113, 22411]", n.toString())
+    }
+
+    /*
+
+Index, nextNode!!.home, rounds: 2, GHZ, 13201
+Index, nextNode!!.home, rounds: 3, RPZ, 14429
+Index, nextNode!!.home, rounds: 0, QXZ, 16271
+Index, nextNode!!.home, rounds: 4, FCZ, 18113
+Index, nextNode!!.home, rounds: 5, ZZZ, 22411
+Index, nextNode!!.home, rounds: 1, GSZ, 24253
+     */
 
 }
