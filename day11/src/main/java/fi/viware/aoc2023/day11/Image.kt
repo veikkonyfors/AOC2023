@@ -8,6 +8,8 @@ class Image(inputLines: List<String>) {
         }
     }
 
+    var imageArrayOriginal = imageArray.copyOf()
+
     fun getEnlargedImageRows(arrayToEnlarge: Array<CharArray>): Array<CharArray>{
         val enlargedImageArray = Array(arrayToEnlarge.size + numEmptyRows(arrayToEnlarge)) { CharArray(arrayToEnlarge[0].size)}
         var j = 0
