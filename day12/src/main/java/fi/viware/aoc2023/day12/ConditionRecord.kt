@@ -40,7 +40,7 @@ class ConditionRecord(val input: String) {
         //var sc = ""
         permutations.forEach{
             //s += String(it) + "\n"
-            conditionArray = condition.i.toCharArray()
+            conditionArray = condition.input.toCharArray()
             it.forEachIndexed { index, c ->
                 conditionArray[candidateIndexesForBroken[index]]=c
             }
@@ -58,7 +58,10 @@ class ConditionRecord(val input: String) {
         if (index == array.size) {
             if (array.count { it == '#' } == hashCount) {
                 //println(array.joinToString(""))
-                permutations.add(array.copyOf())
+                if (isMatch(array, groups)){
+                    println("Adding array: $array")
+                    permutations.add(array.copyOf())
+                }
             }
             return
         }
@@ -94,6 +97,11 @@ class ConditionRecord(val input: String) {
             b = true
         }
         return b
+    }
+
+    fun extendPuzz2(){
+        condition.extendPuzz2()
+        groups.extendPuzz2()
     }
 
     override fun toString(): String {

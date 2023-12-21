@@ -22,7 +22,18 @@ class Day12(inputFileName: String) {
         conditionsRecordList.forEach { conditionRecord ->
             n += conditionRecord.getNumPossibilitiesToAddBroken()
         }
-
         return n
     }
+
+    fun solvePuzz2():Int{
+        var n = 0
+        conditionsRecordList.forEach { conditionRecord ->
+            conditionRecord.extendPuzz2()
+            println("$conditionRecord")
+            n += conditionRecord.getNumPossibilitiesToAddBroken()
+        }
+        return n
+    }
+
+
 }

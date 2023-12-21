@@ -1,6 +1,6 @@
 package fi.viware.aoc2023.day12
 
-class Groups(val input: String) {
+class Groups(var input: String) {
 
     //"1,1,3"
 
@@ -18,6 +18,15 @@ class Groups(val input: String) {
         }
         r += "\\.*"
         return r.toRegex()
+    }
+
+    fun extendPuzz2(){
+        var extendedInput = input
+        for (i in 0 until 4){
+            extendedInput += ",$input"
+        }
+
+        input = extendedInput
     }
 
     override fun toString(): String {

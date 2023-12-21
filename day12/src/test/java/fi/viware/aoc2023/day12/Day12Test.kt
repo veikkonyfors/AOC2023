@@ -91,4 +91,12 @@ class Day12Test(){
         println(n)
         assertEquals(7705, n)
     }
+
+    @Test
+    fun solvePuzz2Test(){
+        val day12 = Day12("raw/input_test")
+        val n = day12.solvePuzz2()
+        println(n)
+        assertEquals(21, n)
+    }
 }
