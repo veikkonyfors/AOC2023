@@ -20,9 +20,9 @@ class Groups(var input: String) {
         return r.toRegex()
     }
 
-    fun extendPuzz2(){
+    fun extendPuzz2(extention: Int){
         var extendedInput = input
-        for (i in 0 until 4){
+        for (i in 0 until extention ){
             extendedInput += ",$input"
         }
 

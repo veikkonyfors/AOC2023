@@ -27,13 +27,27 @@ class Day12(inputFileName: String) {
 
     fun solvePuzz2():Int{
         var n = 0
-        conditionsRecordList.forEach { conditionRecord ->
-            conditionRecord.extendPuzz2()
-            println("$conditionRecord")
-            n += conditionRecord.getNumPossibilitiesToAddBroken()
+        var i = 0
+        conditionsRecordList.forEachIndexed { index, conditionRecord ->
+            println("$index: $conditionRecord")
+            val unExtendedCount = conditionRecord.getNumPossibilitiesToAddBroken() // Count without extension
+            conditionRecord.extendPuzz2(1)
+            val extendedByOneCount = conditionRecord.getNumPossibilitiesToAddBroken()/unExtendedCount // Count with extension of 1
+            val extendenByFourCount = unExtendedCount*extendedByOneCount*extendedByOneCount*extendedByOneCount*extendedByOneCount
+            println("$index: $conditionRecord\n unExtendedCount: $unExtendedCount, extendedByOneCount: $extendedByOneCount, extendenByFourCount: ${extendenByFourCount}")
+            n += extendenByFourCount
         }
         return n
     }
+
+    /*
+3.1.2023:
+    11059467539499415508 / -1206908958
+That's not the right answer; your answer is too high. If you're stuck, make sure you're using the full input data;
+there are also some general tips on the about page, or you can ask for hints on the subreddit.
+Please wait one minute before trying again. [Return to Day 12]
+
+     */
 
 
 }

@@ -10,9 +10,9 @@ class Condition(var input: String) { // ".??..??...?##.
         return input.indices.filter { input[it] == '#' }.toIntArray().size
     }
 
-    fun extendPuzz2(){
+    fun extendPuzz2(extention: Int){
         var extendedI = input
-        for (i in 0 until 4){
+        for (i in 0 until extention){
             extendedI += "?$input"
         }
 
