@@ -2,31 +2,23 @@ package fi.viware.aoc2023.day13
 
 class Pattern(val patternLines: List<String>) {
 
-    val height = patternLines.size
-    val width = patternLines[0].length
-
-    var patternArray = Array(patternLines.size) { row ->
-        CharArray(patternLines[row].length) { col ->
-            patternLines[row][col]
-        }
-    }
-
-    fun summarize(): Int{
-        val reflectingColumn = findReflectingColumn()
+    fun summarize(allowedDiff: Int = 0): Int{
+        val reflectingColumn = findReflectingColumn(allowedDiff)
         var summary = reflectingColumn + 1
-        val reflectingRow = findReflectingRow()
+        val reflectingRow = findReflectingRow(allowedDiff)
         summary += (reflectingRow + 1) * 100
 
         return summary
     }
 
-    fun findReflectingColumn():Int {
+    fun findReflectingColumn(allowedDiff: Int = 0):Int {
 
         var col = -1
 
         for (c in 0 .. patternLines[0].length - 1) {
             var d = 0
             var found = false
+            var numDistinct = 0
 
             while (! found) {
                 val leftCol = c - d
@@ -37,18 +29,90 @@ class Pattern(val patternLines: List<String>) {
                 }
                 val c1 = extractColumn(leftCol)
                 val c2 = extractColumn(rightCol)
-                if (c1 != c2 ) { col = -1; break }
+                if ( ! isReflecting(c1, c2, allowedDiff ) ) { col = -1; break }
+                if ( c1 != c2) numDistinct +=1
                 col = c
                 d++
             }
-
+            if ( numDistinct != allowedDiff) { col = -1; found = false}
             if (found) break
         }
 
         return col
     }
 
-    fun findReflectingRow():Int{
+    fun findReflectingRow(allowedDiff: Int = 0):Int{
+
+        val windowed = patternLines.windowed(2)
+
+        var refRowCandidates = windowed.findReflectingRows {  (r1, r2) -> isReflecting(r1, r2, allowedDiff) }
+        var d = 0
+        var numDistinct = 0
+
+        var r = -1
+
+        for ( i in refRowCandidates )
+        {
+            r = i
+            d = 0
+            var found = false
+            numDistinct = if( windowed[i][0] == windowed[i][1])  0 else 1
+            while ( !found ) {
+                d++
+                if (r - d < 0 || r + d + 1 > patternLines.size - 1) {
+                    found = true
+                    break
+                }
+                val r1 = patternLines[r + d + 1]
+                val r2 = patternLines[r - d]
+                if ( ! isReflecting(r1, r2, allowedDiff)) { r = -1; break }
+                if ( r1 != r2) numDistinct +=1
+            }
+            if ( numDistinct != allowedDiff) { r = -1; found = false }
+            if (found) break
+        }
+        return r
+    }
+
+    public inline fun <T> List<T>.findReflectingRows(predicate: (T) -> Boolean): List<Int> {
+        var index = 0
+        val indexes = mutableListOf<Int>()
+        for (item in this) {
+            if (predicate(item)) {
+                indexes.add(index)
+            }
+                index++
+        }
+        return indexes
+    }
+
+    /**
+     * Tells if given two consecutive lines can be a reflection point.
+     * If lines are the same or have at most numDiff different characters,
+     * lines are reflecting.
+     */
+    fun isReflecting(line1: String, line2: String, numDiff: Int): Boolean{
+        if ( line1 == line2 ) return true
+
+        val diffChars = line1.zip(line2).count { (c1, c2) -> c1 != c2 }
+        return diffChars == numDiff
+    }
+
+
+    fun extractColumn(col: Int): String {
+
+        val s = patternLines.map { row ->
+            row.getOrNull(col) ?: ""
+        }.joinToString(separator = "")
+
+        return s
+    }
+
+    override fun toString(): String {
+        return patternLines.joinToString(separator = "\n") { it }
+    }
+
+    fun findReflectingRowPuzz1():Int{
 
         val windowed = patternLines.windowed(2)
 
@@ -76,88 +140,6 @@ class Pattern(val patternLines: List<String>) {
 
             if (found) break
         }
-        return r
-    }
-
-    public inline fun <T> List<T>.findReflectingRows(predicate: (T) -> Boolean): List<Int> {
-        var index = 0
-        val indexes = mutableListOf<Int>()
-        for (item in this) {
-            if (predicate(item)) {
-                indexes.add(index)
-            }
-                index++
-        }
-        return indexes
-    }
-
-    public inline fun <T> List<T>.findReflectingRows2(predicate: (T) -> Boolean): Int {
-        var index = 0
-        for (item in this) {
-            if (predicate(item))
-                return index
-            index++
-        }
-        return -1
-    }
-
-
-
-    fun extractColumn(col: Int): String {
-
-        val s = patternLines.map { row ->
-            row.getOrNull(col) ?: ""
-        }.joinToString(separator = "")
-
-        return s
-    }
-
-    override fun toString(): String {
-        return patternLines.joinToString(separator = "\n") { it }
-    }
-
-
-
-    // Fails to find mirror if mirroring column is not the first of adjacent identical columns
-    // I.e. later right there is another one that fulfills reflection
-    fun findReflectingColumnIndexOfFirst():Int {
-
-        var c = (0 until patternLines[0].length - 1)
-            .map { sarake ->
-                patternLines.map { rivi -> rivi[sarake] to rivi[sarake + 1] }
-            }
-            .indexOfFirst { sarakepari ->
-                sarakepari.all { (ensimmainen, toinen) -> ensimmainen == toinen }
-            }
-
-        var d = 0
-        while (true) {
-            d++
-            if (c - d < 0 || c + d + 1 > patternLines[0].length - 1) break
-            val c1 = extractColumn(c + d + 1)
-            val c2 = extractColumn(c - d)
-            if (c1 != c2 ) { c = -1; break }
-        }
-
-        return c
-    }
-
-    fun findReflectingRowIndexOfFirst():Int{
-
-        //val mapped = patternArray.map { it.toList() }
-        val windowed = patternLines.windowed(2)
-
-        var r = windowed.indexOfFirst {  (r1, r2) -> r1 == r2 }
-        var d = 0
-
-        while (true) {
-            d++
-            if (r - d < 0 || r + d + 1 > patternLines.size - 1) break
-            val r1 = patternLines[r + d + 1]
-            val r2 = patternLines[r - d]
-            if (r1 != r2 ) { r = -1; break }
-        }
-
         return r
     }
 }

@@ -206,6 +206,51 @@ class PatternsTest {
             println(alkio)
         }
     }
+
+    @Test
+    fun testIsReflecting(){
+
+        var b = isReflecting("abcd","abcd")
+        println("$b")
+
+        b = isReflecting("axcd","abcd")
+        println("$b")
+
+        b = isReflecting("axcd","abcy")
+        println("$b")
+
+        fun isReflecting(line1: String, line2: String): Boolean{
+            if ( line1 == line2 ) return true
+
+            val eroavienMerkkienLaskuri = line1.zip(line2).count { (c1, c2) -> c1 != c2 }
+
+            return eroavienMerkkienLaskuri == 1
+        }
+    }
+    fun isReflecting(line1: String, line2: String): Boolean{
+        if ( line1 == line2 ) return true
+
+        val eroavienMerkkienLaskuri = line1.zip(line2).count { (c1, c2) -> c1 != c2 }
+
+        return eroavienMerkkienLaskuri == 1
+    }
+
+    @Test
+    fun list_all() {
+        val lista = listOf(
+            Pair("merkkijono1a", "merkkijono1b"),
+            Pair("merkkijono2a", "merkkijono2b"),
+            Pair("merkkijono3a", "merkkijono3b")
+        )
+
+        val ovatkoKaikkiSamat = lista.all { (alkio1, alkio2) -> alkio1 == alkio2 }
+
+        if (ovatkoKaikkiSamat) {
+            println("Kaikki alkiot ovat samat.")
+        } else {
+            println("Ei kaikki alkiot ole samat.")
+        }
+    }
 }
 
 

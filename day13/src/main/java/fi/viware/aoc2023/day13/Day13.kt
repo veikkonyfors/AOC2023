@@ -32,5 +32,14 @@ class Day13(inputFileName: String) {
 
         return summary
     }
+
+    fun solvePuzz2(): Int{
+        var summary = 0
+        patterns.forEach { pattern ->
+            summary += pattern.summarize(1)
+        }
+
+        return summary
+    }
     
 }
