@@ -22,9 +22,22 @@ class Day14(inputFileName: String) {
     }
 
     fun solvePuzz2(): Int{
-        platform.tilt(NORTH)
-        val load = platform.getLoad()
-        return load
+        var round = 0
+        var load = 0
+        var hash = ""
+        val cycleAnalyzer = CycleAnalyzer()
+        repeat(1000) {
+            hash = platform.oneRound().getHash()
+            load = platform.getLoad()
+            //println("$round: $load")
+            cycleAnalyzer.add(Pair(load, hash), round++)
+        }
+        //println("$cycleAnalyzer")
+        val cycleLength = cycleAnalyzer.getCycleLength()
+        println("$cycleLength")
+        val i = cycleAnalyzer.getGigaLoad()
+        println("$i")
+        return i
     }
     
 }
