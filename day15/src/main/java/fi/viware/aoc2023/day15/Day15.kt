@@ -14,12 +14,17 @@ class Day15(inputFileName: String) {
     }
 
     fun solvePuzz1(): Int{
-        return 0
+        val day15 = Day15("raw/input")
+        return day15.initialisationSequence.getHashSum()
     }
 
     fun solvePuzz2(): Int{
-
-        return 0
+        val day15 = Day15("raw/input")
+        val steps = day15.initialisationSequence.steps
+        day15.boxes.processSteps(steps)
+        return day15.boxes.getFocusingPower()
     }
+
+
 
 }

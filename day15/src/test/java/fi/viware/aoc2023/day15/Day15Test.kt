@@ -26,6 +26,11 @@ class Day15Test {
 
         // Solve Puzz2
         day15 = Day15("raw/input")
+        i=day15.solvePuzz2()
+        assertEquals(239484, i)
+
+
+        day15 = Day15("raw/input")
         steps = day15.initialisationSequence.steps
         day15.boxes.processSteps(steps)
         i = day15.boxes.getFocusingPower()
@@ -55,6 +60,10 @@ class Day15Test {
         assertEquals("0: [rn 1]\n", s)
 
         // Solve Puzz1
+        day15 = Day15("raw/input")
+        i = day15.initialisationSequence.getHashSum()
+        assertEquals(511257,i)
+
         day15 = Day15("raw/input")
         i = day15.initialisationSequence.getHashSum()
         println("$i")
