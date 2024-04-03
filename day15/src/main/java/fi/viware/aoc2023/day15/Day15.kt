@@ -4,6 +4,7 @@ import java.net.URL
 
 class Day15(inputFileName: String) {
     val initialisationSequence: InitialisationSequence
+    val boxes = Boxes()
 
     init {
 

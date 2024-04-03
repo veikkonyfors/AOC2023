@@ -1,9 +1,22 @@
 package fi.viware.aoc2023.day15
 
 class InitialisationSequence(val inputLines: String) {
+
+    companion object {
+        fun hashOne(step: String): Int {
+            val stepList = step.toList()
+            var hash = 0
+            stepList.forEach {
+                hash += it.code
+                hash = hash * 17 % 256
+            }
+            return hash
+        }
+    }
+
     val steps: List<String> = inputLines.split(",")  // One line only!
 
-    fun getHash(): Int{
+    fun getHashSum(): Int{
         val hash = steps.sumUp {
             hashOne(it)
         }
@@ -19,15 +32,6 @@ class InitialisationSequence(val inputLines: String) {
         return sum
     }
 
-    fun hashOne(step: String): Int{
-        val stepList = step.toList()
-        var hash = 0
-        stepList.forEach {
-            hash += it.code
-            hash = hash*17%256
-        }
-        return hash
-    }
 
     public inline fun <T> List<T>.findReflectingRows(predicate: (T) -> Boolean): List<Int> {
         var index = 0
