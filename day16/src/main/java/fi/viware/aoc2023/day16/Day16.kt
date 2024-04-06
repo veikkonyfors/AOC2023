@@ -13,6 +13,10 @@ class Day16(val inputFileName: String) {
 
     fun solvePuzz1(): Int {
         contraption.beam.stepAhead()
-        return contraption.getNumberOfEnergizedTiles()
+        return contraption.countNumberOfEnergizedTilesOnPuzz1()
+    }
+
+    fun solvePuzz2(): Int {
+        return contraption.getMaxNumberOfEnergizedTiles()
     }
 }

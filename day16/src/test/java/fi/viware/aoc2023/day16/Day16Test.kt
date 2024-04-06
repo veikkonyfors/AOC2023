@@ -17,6 +17,19 @@ class Day16Test {
     }
 
     @Test
+    fun solevPuzz2(){
+        var day16 = Day16("raw/input")
+        var i = day16.solvePuzz2()
+        println("$i")
+        assertEquals(6766,i)
+
+        day16 = Day16("raw/input_test")
+        i = day16.solvePuzz2()
+        println("$i")
+        assertEquals(51,i)
+    }
+
+    @Test
     fun solevPuzz1(){
         var day16 = Day16("raw/input")
         var i = day16.solvePuzz1()
@@ -36,10 +49,36 @@ class Day16Test {
         var b = true
         var i = 0
 
+        // Solve Puzz2
+        day16 = Day16("raw/input")
+        i = day16.contraption.getMaxNumberOfEnergizedTiles()
+        println("$i")
+        assertEquals(6766,i)
+
+        // Puzz2 test row 0, col 0, RIGHT
+        day16 = Day16("raw/input_test")
+        day16.contraption.beam.row = 0
+        day16.contraption.beam.col = 0
+        day16.contraption.beam.direction = RIGHT
+        b = day16.contraption.beam.stepAhead()
+        i = day16.contraption.countNumberOfEnergizedTilesOnPuzz1()
+        println("$i")
+        assertEquals(46,i)
+
+        // Puzz2 test row 0, col 3, DOWN
+        day16 = Day16("raw/input_test")
+        day16.contraption.beam.row = 0
+        day16.contraption.beam.col = 3
+        day16.contraption.beam.direction = DOWN
+        b = day16.contraption.beam.stepAhead()
+        i = day16.contraption.countNumberOfEnergizedTilesOnPuzz1()
+        println("$i")
+        assertEquals(51,i)
+
         // Solve puzz1
         day16 = Day16("raw/input_test")
         b = day16.contraption.beam.stepAhead()
-        i = day16.contraption.getNumberOfEnergizedTiles()
+        i = day16.contraption.countNumberOfEnergizedTilesOnPuzz1()
         println("$i")
         assertEquals(46,i)
 
