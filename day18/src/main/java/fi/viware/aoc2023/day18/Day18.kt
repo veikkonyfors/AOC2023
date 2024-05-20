@@ -5,9 +5,9 @@ import java.net.URL
 
 
 fun main(){
-    var day18 = Day18("raw/input_test")
+    var day18 = Day18("day18/src/main/resources/raw/input_test")
     println("${day18.lagoonPuzz2.volume()}")
-    day18 = Day18("raw/input")
+    day18 = Day18("day18/src/main/resources/raw/input")
     println("${day18.lagoonPuzz2.volume()}")
 }
 
@@ -17,7 +17,7 @@ class Day18(val inputFileName: String) {
     init {
         //val url: URL? = javaClass.classLoader.getResource(inputFileName).toURI().toURL()
         //val inputLines = url!!.openStream().bufferedReader().readLines()
-        val inputFile = File("day18/src/main/resources/"+inputFileName)
+        val inputFile = File(inputFileName)
         val inputLines = inputFile.readLines()
         lagoon = Lagoon(inputLines)
         lagoonPuzz2 = LagoonPuzz2(inputLines)
