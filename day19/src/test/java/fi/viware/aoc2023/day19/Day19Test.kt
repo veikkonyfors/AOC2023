@@ -55,4 +55,16 @@ class Day19Test {
         assertEquals(19114,i)
 
     }
+
+    @Test
+    fun day19Puzz2(){
+        var day19: Day19
+        var s: String
+        var l: Long
+
+        day19 = Day19("src/main/res/input_test")
+        l = day19.recurse("in", Range(), Range(), Range(), Range())
+        println("$l")
+        assertEquals(167409079868000,l)
+    }
 }

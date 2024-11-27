@@ -74,6 +74,47 @@ class Day19(val inputFileName: String) {
         return addUp()
     }
 
+    fun recurse(workFlowName: String = "in", x: Range, m: Range, a: Range, s: Range): Long {
+        var ret = 0L
+        val categoryRangeMap = mutableMapOf("x" to x, "m" to m,"a" to a, "s" to s)
+        var lastRule: Rule
+        for (rule in workFlows[workFlowName]!!.rules) {
+            lastRule = rule
+            if (rule.category.isNotEmpty()) categoryRangeMap[rule.category]!!.update(rule)
+            if (rule.destination in listOf("A", "R")) {
+                var toAdd = 1L
+                when (rule.destination) {
+                    "A" -> categoryRangeMap.values.forEach { toAdd *= it.countAccepted() }
+                    else -> toAdd = 0
+                }
+                ret += toAdd
+                val mulStr = categoryRangeMap.values.joinToString(separator = " * ")
+                println("$workFlowName: ${rule.toString()} ->  ${rule.destination}: Add ${mulStr} = $toAdd -> $ret")
+            } else {
+                print("$workFlowName: ${rule.toString()} -> ")
+                ret += recurse(
+                    rule.destination,
+                    categoryRangeMap["x"]!!,
+                    categoryRangeMap["m"]!!,
+                    categoryRangeMap["a"]!!,
+                    categoryRangeMap["s"]!!
+                )
+            }
+            // we go to next rule, as the previous didn't match
+            // Previous rule has to be reversed! E.g. x < 10 didn't match, thus x > 9 is true
+            if (rule.category.isNotEmpty()) // Final target doesn't have a rule
+                categoryRangeMap[rule.category]!!.reverse(rule)
+        }
+        return ret
+    }
+
+    //167409079868000
+    //87891312160200
+    //72571107160200
+    //9719208470400
+    //196079140914600
+    //93701302754400
+
     fun solvePuzz2(): Long {
         return 0
     }
