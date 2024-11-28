@@ -2,5 +2,6 @@
 
 Solutions for Advent of Code 2023 puzzles.
 
-Maintained with Android Studio. Even so, may contain solutions on other platforms, e.g. solutions
+Maintained mainly with Android Studio.
+May contain solutions on other platforms, e.g. solutions
 with Unix Shell command line commands.
